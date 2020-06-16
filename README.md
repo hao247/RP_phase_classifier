@@ -13,11 +13,11 @@ The motivation of building this app is to provide a simple tool for quickly iden
 
 ### Data normalization
 
-![](assets/work_flow.png?raw=true?style=centerme)
+![](assets/work_flow.png#center)
 
 The XRD spectrum data is an angular distribution of scattering intensity. More info about XRD can be found from **[here](https://neutrons.ornl.gov/sites/default/files/NX_Miller_2017.pdf)**. The starting point is data normalization is based on the fact the materials from the same phase share similar distribution of spectrum. However, the Bragg peaks(check the link above) scale up and down due to different lattice parameters. Therefore, I renormalize the peak location by setting the highest peak at a specified location (30, for example). The new peak loacation is then mapped into 80 bins, in which intensities are summed together. This process will generate a one-dimensional pattern with 80 rows. As you can see from the picture below, these patterns indeed share similarities within each class.
 
-![](assets/pattern_comparison.png?raw=true?style=centerme)
+![](assets/pattern_comparison.png#center)
 
 ### Model
 
