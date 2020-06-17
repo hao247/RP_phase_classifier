@@ -2,9 +2,23 @@
 
 This is an app for finding the correponding Ruddlesden-Popper(RP) phase base on X-ray diffraction(XRD) data.
 
+### How to use
+
+1. Use pip to install all required modules.
+
+`pip install -r requirements`
+
+2. The web browser will automatically open the app by running in Terminal/Command line
+
+`python app.py`
+
+3. Upload the data file. Details of the data including spectrum and highest peaks should show up on the right panel.
+
+4. The predictions from the random forest classifier and the neural network classifier will be displayed on the bottom of right panel.
+
 ### Background
 
-**RP phases** or **layered perovskites** are a class inorganic materials that share very similar crystal structures. The general fomula of RP-phase can be written as A<sub>n+1</sub>M<sub>n</sub>O<sub>3n+1</sub>, where A is usually an alkali earth cation, B is a transition metal cation, O is oxygen anion, and n is the number of layers in the unit cell of crystal structure. This class of materials, due to quasi two-dimensional crystal structure with stacking perovskite layers and correlated d-electrons, display many different types of extoic physical properties, from insulators to superconductors and from non-magnetic materials to magnets. A brief introduction of RP phases can be found from **[here](https://en.wikipedia.org/wiki/Ruddlesden-Popper_phase)**.
+**RP phases** or **layered perovskites** are a class inorganic materials that share very similar crystal structures. The general fomula of RP-phase can be written as A<sub>n+1</sub>M<sub>n</sub>O<sub>3n+1</sub>, where A is usually an alkali earth cation, B is a transition metal cation, O is oxygen anion, and n is an integer corresponding to the number of layers in the unit cell of crystal structure. This class of materials, due to quasi two-dimensional crystal structure with stacking perovskite layers and correlated d-electrons, display many different types of extoic physical properties, from insulators to superconductors and from non-magnetic materials to magnets. A brief introduction of RP phases can be found from **[here](https://en.wikipedia.org/wiki/Ruddlesden-Popper_phase)**.
 
 RP-phases are frequently synthesized and heavily studied in my lab. Once a new compound is synthesized, one needs to identify the correct phase, i.e. the number of layers **n**, before digging into their physical properties. This is usually performed by measuring the XRD from polycrystalline samples. Once the measurement is done, a lengthy and tricky analysis needs to be performed to identify which phase it belongs to, which requires not only a pricy crystal database for reference but also significant amount of knowledge and experience from the researcher. Not to say that the spectrum becomes pretty complicated if the compound is doped or consists lattice deficiencies. 
 
@@ -27,7 +41,7 @@ The XRD spectrum data is an angular distribution of scattering intensity. More i
 
 #### PCA
 
-A principle component analysis is performed to see what are the most decisive features from the pattern. A  diagram showing classfication as a function of first and second principle components are shown below.
+A principle component analysis is performed to see what are the most decisive features from the pattern. A  diagram showing classfication as a function of first and second principle components are shown below, where red, green, and purple correspond to A<sub>2</sub>MO<sub>4</sub>, A<sub>3</sub>M<sub>2</sub>O<sub>7</sub> and AMO<sub>3</sub>, respectively.
 
 <p align="center">
   <img src="assets/PCA.png">
@@ -43,7 +57,7 @@ It seems that No. 21, 31, and 34 are the main features determining the class of 
 
 #### Random forest classifier
 
-After the pattern is generated, it is sent to two classifiers, a random forest classifier and a neural network classifier. The ranfom forest classifier contains 100 trees in the forest. All trees are set to expand until all their leaves are pure. The number of randomly selected features is set to `sqrt(N)`, where N=80 is the total number of features in the pattern. This method provides more effective features than `log2` since many of the features in the pattern are actually zero due to the nature of spectrum they originate. Larger number of trees are also tested, though the result does not show any significant improvement. 688 spectra, including 287 spectra from A<sub>2</sub>M<sub>1</sub>O<sub>4</sub>, 175 spectra from A<sub>3</sub>M<sub>2</sub>O<sub>7</sub>, and 224 spectra from AMO<sub>3</sub> are used to train and test the model. 30% of the data are used for evaluate the performance of the model, and the obtained confusion matrix is
+After the pattern is generated, it is sent to two classifiers, a random forest classifier and a neural network classifier. The ranfom forest classifier contains 100 trees in the forest. All trees are set to expand until all their leaves are pure. The number of randomly selected features is set to `sqrt(N)`, where N=80 is the total number of features in the pattern. This method provides more effective features than `log2` since many of the features in the pattern are actually zero due to the nature of spectrum they originate. Larger number of trees are also tested, though the result does not show any significant improvement. 688 spectra, including 287 spectra from A<sub>2</sub>MO<sub>4</sub>, 175 spectra from A<sub>3</sub>M<sub>2</sub>O<sub>7</sub>, and 224 spectra from AMO<sub>3</sub> are used to train and test the model. 30% of the data are used for evaluate the performance of the model, and the obtained confusion matrix is
 
 ```
 [[94,  0,  0],
@@ -60,19 +74,3 @@ The initial neural network merely implements 3 dense layers. The number of nodes
 <p align="center">
   <img src="assets/nn_model_cost_w_callbacks.png">
 </p>
-
-
-### How to use
-
-1. Use pip to install all required modules.
-
-`pip install -r requirements`
-
-2. The web browser will automatically open the app by running in Terminal/Command line
-
-`python app.py`
-
-3. Upload the data file. Details of the data including spectrum and highest peaks should show up on the right panel.
-
-4. The predictions from the random forest classifier and the neural network classifier will be displayed on the bottom of right panel.
-
