@@ -61,8 +61,8 @@ After the pattern is generated, it is sent to two classifiers, a random forest c
 
 ```
 [[94,  0,  0],
- [0,  46,  0],
- [0,  2,  64]]
+ [ 0, 46,  0],
+ [ 0,  2, 64]]
 ```
 
 There is little mixing between A<sub>3</sub>M<sub>2</sub>O<sub>7</sub> and AMO<sub>3</sub>, which can be explained by the fact that A<sub>3</sub>M<sub>2</sub>O<sub>7</sub> usually has a much more complicated pattern which may mimic the much simpler AMO<sub>3</sub> pattern. This can be resolved by using more A<sub>3</sub>M<sub>2</sub>O<sub>7</sub> samples to strengthen the classification.
@@ -74,3 +74,13 @@ The initial neural network merely implements 3 dense layers. The number of nodes
 <p align="center">
   <img src="assets/nn_model_cost_w_callbacks.png">
 </p>
+
+The confusion matrix indicates that the trained neural network successfully predicts all test samples without any error. 
+
+```
+[[96,  0,  0],
+ [ 0, 52,  0],
+ [ 0,  0, 58]]
+```
+
+It should be noted that the model is limited to the number of sample I collected. For those compounds with large amount of impurities or very distorted structures, this model may fail. Adding a non-RP-phase category may be useful if the user is not sure whether the compound has a well-defined RP-phase crystal structure.
